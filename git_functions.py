@@ -1,6 +1,17 @@
 import subprocess
 
 
+def is_branch_merged(branch):
+    """
+    Checks if given branch is merged into current branch.
+    :param branch: Name of branch
+    :return: True/False
+    """
+    proc = subprocess.Popen(['git', 'branch', '--merged'], stdout=subprocess.PIPE)
+    result = proc.stdout.read().decode()
+    return branch in result.strip().split('\n')
+
+
 def get_file_contents_from_branch(filename, branch_name):
     """
     Gets the contents of a file from a specific branch.
