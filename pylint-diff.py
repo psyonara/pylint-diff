@@ -7,11 +7,10 @@ from pylint_functions import get_pylint_score
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Calculate the pylint score difference between two branches for a particular file.'
+        description="Calculate the pylint score difference between two branches for a particular file."
     )
     parser.add_argument(
-        "file_name",
-        help="The path to the file name that should be compared across two branches."
+        "file_name", help="The path to the file name that should be compared across two branches."
     )
     args = parser.parse_args()
     branch = get_current_branch_name()
