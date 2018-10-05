@@ -7,5 +7,5 @@ def get_pylint_score(filename):
     :param filename: Name of the file
     :return: Pylint score
     """
-    result = Run([filename, '--reports=n'], exit=False)
-    return result.linter.stats['global_note']
+    result = Run([filename, "--reports=n"], exit=False)
+    return result.linter.stats["global_note"]
