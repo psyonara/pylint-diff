@@ -9,7 +9,7 @@ def is_branch_merged(branch):
     """
     proc = subprocess.Popen(["git", "branch", "--merged"], stdout=subprocess.PIPE)
     result = proc.stdout.read().decode()
-    return branch in result.strip().split("\n")
+    return branch in [item.strip() for item in result.strip().split("\n") if item]
 
 
 def get_file_contents_from_branch(filename, branch_name):
@@ -31,7 +31,7 @@ def get_current_branch_name():
     :return: Name of the branch
     """
     proc = subprocess.Popen(["git", "rev-parse", "--abbrev-ref", "HEAD"], stdout=subprocess.PIPE)
-    return proc.stdout.read().decode()
+    return proc.stdout.read().decode().strip("\n")
 
 
 def get_changed_files(branch1, branch2):
@@ -55,4 +55,4 @@ def uncommitted_changes_present():
     """
     proc = subprocess.Popen(["git", "status"], stdout=subprocess.PIPE)
     result = proc.stdout.read().decode()
-    return not("nothing to commit" in result)
+    return not "nothing to commit" in result
