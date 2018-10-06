@@ -1,7 +1,8 @@
 import argparse
 import os
 
-from git_functions import get_file_contents_from_branch, get_current_branch_name, is_branch_merged
+from git_functions import get_file_contents_from_branch, get_current_branch_name, is_branch_merged, \
+    uncommitted_changes_present
 from pylint_functions import get_pylint_score
 
 
@@ -17,9 +18,14 @@ def main():
     branch = get_current_branch_name()
     if branch == "master":
         print("Cannot run on master.")
+        return
 
     if is_branch_merged("master") is False:
         print("Master must be merged into current branch")
+        return
+
+    if uncommitted_changes_present() is True:
+        print("Warning: Uncommitted changes are present, and will not be included.")
 
     if not os.path.isdir("temp"):
         os.makedirs("temp")
