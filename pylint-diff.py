@@ -58,6 +58,9 @@ def main():
         print("Modified score: %s" % score2)
         print("Score diff: %s" % (score2 - score1))
 
+    if os.path.isdir("temp"):
+        os.rmdir("temp")
+
 
 if __name__ == "__main__":
     main()
