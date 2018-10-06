@@ -1,7 +1,7 @@
 import argparse
 import os
 
-from git_functions import get_file_contents_from_branch, get_current_branch_name
+from git_functions import get_file_contents_from_branch, get_current_branch_name, is_branch_merged
 from pylint_functions import get_pylint_score
 
 
@@ -13,10 +13,13 @@ def main():
         "file_name", help="The path to the file name that should be compared across two branches."
     )
     args = parser.parse_args()
+
     branch = get_current_branch_name()
-    print(branch)
     if branch == "master":
         print("Cannot run on master.")
+
+    if is_branch_merged("master") is False:
+        print("Master must be merged into current branch")
 
     if not os.path.isdir("temp"):
         os.makedirs("temp")
