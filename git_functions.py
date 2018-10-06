@@ -46,3 +46,13 @@ def get_changed_files(branch1, branch2):
     )
     result = proc.stdout.read().decode()
     return [file for file in result.split("\n") if file]
+
+
+def uncommitted_changes_present():
+    """
+    Checks whether uncommitted changes are present on the current branch.
+    :return: True/False
+    """
+    proc = subprocess.Popen(["git", "status"], stdout=subprocess.PIPE)
+    result = proc.stdout.read().decode()
+    return not("nothing to commit" in result)
