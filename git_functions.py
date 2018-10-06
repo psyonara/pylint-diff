@@ -44,4 +44,5 @@ def get_changed_files(branch1, branch2):
     proc = subprocess.Popen(
         ["git", "diff", "--name-only", branch1, branch2], stdout=subprocess.PIPE
     )
-    return proc.stdout.read().decode()
+    result = proc.stdout.read().decode()
+    return [file for file in result.split("\n") if file]
